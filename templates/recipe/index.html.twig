@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Toutes les recettes
+{% endblock %}
+
+{% block body %}
+	<p>
+		Toutes les recettes
+	</p>
+	<div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>
+						Titre
+					</th>
+					<th>
+						Actions
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for recipe in recipes %}
+				<tr>
+					<td>
+						<a href="{{ url('recipe.show', {'id':recipe.id, 'slug': recipe.slug, 'recipe': recipe}) }}">{{recipe.title}}</a>
+					</td>
+					<td>
+						<a class="btn btn-primary btn-sm" href="{{ path('recipe.edit', {'id':recipe.id}) }}">Editer</a>
+						<a class="btn btn-danger btn-sm" href="{{ url('recipe.remove', {'id':recipe.id}) }}">Suppimer</a>
+					</td>					
+				</tr>
+				{% endfor %}
+			</tbody>			
+		</table>
+		<a class="btn btn-success btn-sm" href="{{ url('recipe.create') }}">Create une recette</a>
+	</div>
+{% endblock %}
