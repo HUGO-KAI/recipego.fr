@@ -1,0 +1,36 @@
+@media screen and (min-width: 1080px) {
+    .expand-search {
+        width: 400px;
+        transition: all 1s;
+    }
+}
+.nav-link {
+    color: white;
+}
+
+.nav-link:hover,
+.nav-link:focus,
+.nav-link.active,
+.nav-link:active,
+.nav-link:focus-within,
+.nav-link:focus-visible,
+.nav-link:target,
+.nav-link.show {
+    background-color: #0dcaf0;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+@media screen and (max-width: 468px) {
+    #searchForm {
+        display: none;
+    }
+}
+
+#searchInput {
+    background-color: white;
+}
+#searchInput::placeholder {
+    color: gray;
+}

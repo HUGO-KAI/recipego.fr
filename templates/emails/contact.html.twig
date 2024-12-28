@@ -1,0 +1,14 @@
+{% block title %}Nouveau message de {{contact.name}}{% endblock %}
+
+{% block body %}
+<div>
+    <p>Vous avez reçu un nouveau message</p>
+    <ul>
+        <li><strong>Nom: </strong>{{contact.name}}</li>
+        <li><strong>Email: </strong>{{contact.email}}</li>
+        <li><strong>Au service: </strong>{{contact.service}}</li>
+        <li><strong>Message: </strong></li>
+    </ul>
+    <p>{{contact.message | nl2br }}</p>
+</div>
+{% endblock %}

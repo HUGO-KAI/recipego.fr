@@ -19,7 +19,7 @@ class Recipe
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\length(min: 2)]
+    #[Assert\Length(min: 2)]
     #[Assert\NotBlank]
     private ?string $title = null;
 
