@@ -18,8 +18,8 @@ class RecipeController extends AbstractController
     #[Route('/recettes', name: 'recipe.index')]
     public function getAllRecettes(Request $request, RecipeRepository $repository, EntityManagerInterface $em): Response
     {
-        $recipes = $repository->findAll();
-
+        $recipes = $repository->findWithDurationLowerThan(30);
+        
         //create recipe
         /* $recipe = new Recipe();
         $recipe->setTitle('Barbe à papa')

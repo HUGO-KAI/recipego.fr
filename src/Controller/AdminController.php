@@ -17,7 +17,7 @@ use Doctrine\ORM\EntityManagerInterface;
 class AdminController extends AbstractController
 {
     #[Route('/index', name: 'index')]
-    public function index(RecipeRepository $repoRecipe, CategoryRepository $categoryRecipe): Response
+    public function index(RecipeRepository $repoRecipe, CategoryRepository $categoryRecipe, EntityManagerInterface $em): Response
     {
         $recipes = $repoRecipe->findAll();
         $categories = $categoryRecipe->findAll();

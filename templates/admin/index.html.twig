@@ -52,6 +52,9 @@
 								Titre
 							</th>
 							<th>
+								Catégorie
+							</th>
+							<th>
 								Actions
 							</th>
 						</tr>
@@ -61,6 +64,9 @@
 						<tr>
 							<td>
 								<a href="{{ url('admin_recipe.show', {'id':recipe.id, 'slug': recipe.slug, 'recipe': recipe}) }}">{{recipe.title}}</a>
+							</td>
+							<td>
+								{{recipe.category.name | default('') }}
 							</td>
 							<td>
 								<a class="btn btn-primary btn-sm" href="{{ path('admin_recipe.edit', {'id':recipe.id}) }}">Editer</a>
