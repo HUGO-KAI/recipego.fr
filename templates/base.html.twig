@@ -37,6 +37,10 @@
 								<!-- utilise start with pour les routes commence par recipe -->
 								<a class="nav-link {{ app.current_route == 'contact.index' ? 'active':''}}" href="{{ url('contact.index') }}">Contact</a>
 							</li>
+							<li class="nav-item">
+								<!-- utilise start with pour les routes commence par recipe -->
+								<a class="nav-link {{ app.current_route == 'admin_index' ? 'active':''}}" href="{{ url('admin_index') }}">Admin</a>
+							</li>
 						</ul>
 						<form class="d-flex" role="search" id="searchForm">
 							<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput">
@@ -52,7 +56,7 @@
 			</div>
 		</div>
 		<script>
-			const input = document.getElementsByClassName("form-control")[0];
+			/* const input = document.getElementById("searchInput");
 			input.addEventListener("focus", function () {
 			this.classList.add("expand-search");
 			});
@@ -62,7 +66,7 @@
 			const buttonSubmit = document.getElementById("submit");
 			buttonSubmit.addEventListener("click", function (e) {
 			e.preventDefault();
-			});
+			}); */
 		</script>
 		</body>
 	</html>
