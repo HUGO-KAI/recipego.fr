@@ -1,12 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{recipe.slug}}-{{recipe.id}}
+{{recipe.slug}}-{{recipe.id}}
 {% endblock %}
 
 {% block body %}
+<div class="container row col-6">
 	<h2>{{recipe.title}}</h2>
+	<img src="{{ recipe.thumbnail?vich_uploader_asset(recipe, 'thumbnailFile'):'' }}" alt="{{ recipe.title }}"
+		class="img-fluid {{ recipe.thumbnail?'':'d-none'}}">
 	<p>
 		{{ recipe.getContent | nl2br }}
 	</p>
+</div>
 {% endblock %}

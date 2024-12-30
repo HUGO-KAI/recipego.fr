@@ -1,13 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	edit {{recipe.slug}}-{{recipe.id}}
+edit {{recipe.slug}}-{{recipe.id}}
 {% endblock %}
 
 {% block body %}
-	<div class="container row col-6">
-		<h1>{{recipe.title}}</h1>
-		{{ form(form) }}
-	</div>
-	
+<div class="container row col-6">
+	<h1>{{recipe.title}}</h1>
+	<p>
+		<img src="{{ recipe.thumbnail?vich_uploader_asset(recipe, 'thumbnailFile'):'' }}" alt="{{ recipe.title }}"
+			class="img-fluid {{ recipe.thumbnail?'':'d-none'}}">
+	</p>
+	{{ form(form) }}
+</div>
+
 {% endblock %}
