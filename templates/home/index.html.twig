@@ -1,23 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Bienvenu - Decouvrez les recettes{% endblock %}
 
 {% block body %}
 <style>
-    .example-wrapper {
-        margin: 1em auto;
-        max-width: 800px;
-        width: 95%;
-        font: 18px/1.5 sans-serif;
-    }
-
-    .example-wrapper code {
-        background: #F5F5F5;
-        padding: 2px 6px;
-    }
 </style>
 
-<div class="example-wrapper">
-    <h1>Le chef de cuisinier, c'est vous !</h1>
+<div class="bg-dark d-flex shadow rounded overflow-hidden">
+    <div>
+        <img class="img-fluid" src="/images/chef-cuisinier.jpeg" alt="chef-cuisine">
+    </div>
+    <div class="text-center d-flex">
+        <div class="align-self-center">
+            <h1 class="text-info">Le chef de cuisine, c'est vous !</h1>
+            <a href="{{ url('recipe.index') }}"
+                class="text-white link-offset-2 link-underline-info link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">
+                Découvrez notres recettres et créez la votre ->
+            </a>
+        </div>
+    </div>
 </div>
 {% endblock %}
