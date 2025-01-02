@@ -40,13 +40,26 @@
 								href="{{ url('recipe.index') }}">Recettes</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link {{ app.current_route == 'admin_index' ? 'active':''}}"
-								href="{{ url('admin_index') }}">Admin</a>
-						</li>
-						<li class="nav-item">
 							<a class="nav-link {{ app.current_route == 'contact.index' ? 'active':''}}"
 								href="{{ url('contact.index') }}">Contact</a>
 						</li>
+						{% if app.user %}
+						<li class="nav-item">
+							<a class="nav-link {{ app.current_route == 'app_logout' ? 'active':''}}"
+								href="{{ url('app_logout') }}">Logout</a>
+						</li>
+						{% else %}
+						<li class="nav-item">
+							<a class="nav-link {{ app.current_route == 'app_login' ? 'active':''}}"
+								href="{{ url('app_login') }}">Login</a>
+						</li>
+						{% endif %}
+						{% if app.user %}
+						<li class="nav-item">
+							<a class="nav-link {{ app.current_route == 'admin_index' ? 'active':''}}"
+								href="{{ url('admin_index') }}">Admin</a>
+						</li>
+						{% endif %}
 					</ul>
 					<form class="d-flex" role="search" id="searchForm">
 						<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput">

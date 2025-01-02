@@ -5,6 +5,7 @@
 
 {% block body %}
 <div class="row">
+	{% if (categories|length > 0) %}
 	<div class="col-4 border-end">
 		<h2>
 			Toutes les catégories
@@ -40,6 +41,7 @@
 			<a class="btn btn-success btn-sm" href="{{ url('admin_category.create') }}">Créer une categorie</a>
 		</div>
 	</div>
+	{% endif %}
 	<div class="col-8">
 		<h2>
 			Toutes les recettes

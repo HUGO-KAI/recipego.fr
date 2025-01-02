@@ -28,7 +28,7 @@ class ContactType extends AbstractType
                 'required' => true,
                 'choices'  => [
                     'Commercial' => 'commercial@exemple.com',
-                    'Support technique' => 'technique@exemple.com',
+                    'Support technique' => 'Support@exemple.com',
                     'Recrutement' => 'recrutement@exemple.com',
                 ]
             ])

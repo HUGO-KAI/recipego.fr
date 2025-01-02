@@ -40,7 +40,7 @@ class ContactController extends AbstractController
                 $mailer->send($email);
                 $this->addFlash(
                     'success',
-                    'Votre message a bien été envoyé!'
+                    'Votre message a bien été envoyé au ' . $contact->getService() . ' !'
                 );
                 return $this->redirectToRoute('contact.index');
             } catch (TransportExceptionInterface $e) {

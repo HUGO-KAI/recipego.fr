@@ -33,11 +33,21 @@ class RecipeRepository extends ServiceEntityRepository
             ->select('r', 'c')
             ->where('r.duration <= :duration')
             ->orderBy('r.duration', 'ASC')
-            ->leftJoin('r.category','c')
+            ->leftJoin('r.category', 'c')
             ->setMaxResults(10)
             ->setParameter('duration', $duration)
             ->getQuery()
             ->getResult();
+    }
+
+    public function findByUserId($user): ?array
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getArrayResult()
+        ;
     }
 
     //    public function findOneBySomeField($value): ?Recipe

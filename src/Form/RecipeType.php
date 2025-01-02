@@ -29,7 +29,9 @@ class RecipeType extends AbstractType
             ->add('slug', TextType::class, [
                 'required' => false
             ])
-            ->add('thumbnailFile', FileType::class) //utilise vichupload bundle
+            ->add('thumbnailFile', FileType::class, [
+                'required' => false
+            ]) //utilise vichupload bundle
             //finalement ajouter dans Entity
             /* ->add('slug', TextType::class, [
                 'required' => false,

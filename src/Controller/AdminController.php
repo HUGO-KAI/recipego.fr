@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Recipe;
+use App\Entity\User;
 use App\Form\RecipeType;
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,8 +20,18 @@ class AdminController extends AbstractController
     #[Route('/index', name: 'index')]
     public function index(RecipeRepository $repoRecipe, CategoryRepository $categoryRecipe, EntityManagerInterface $em): Response
     {
-        $recipes = $repoRecipe->findAll();
-        $categories = $categoryRecipe->findAll();
+        //how to get current user
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $user = $this->getUser();
+        $role = $user->getRoles()['0'];
+        $recipes = [];
+        $categories = [];
+        if ($role == 'ROLE_USER') {
+            $recipes = $repoRecipe->findByUserId($user);
+        } elseif ($role == 'ROLE_ADMIN') {
+            $recipes = $repoRecipe->findAll();
+            $categories = $categoryRecipe->findAll();
+        }
         return $this->render('admin/index.html.twig', [
             'recipes' => $recipes,
             'categories' => $categories
@@ -74,6 +85,9 @@ class AdminController extends AbstractController
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+            $user = $this->getUser();
+            $recipe->setUser($user);
             $em->persist($recipe);
             $em->flush();
             $this->addFlash(
@@ -94,6 +108,12 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+            $user = $this->getUser();
+            //Si user n'est pas enregistré, set current user
+            if (empty($recipe->getUser())) {
+                $recipe->setUser($user);
+            }
             $em->flush();
             $this->addFlash(
                 'success',
