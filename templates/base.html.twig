@@ -2,95 +2,100 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
-	<title>
-		{% block title %}Welcome!
-		{% endblock %}
-	</title>
-	<link rel="icon" href="/logo.png">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-	{% block stylesheets %}
-	{% endblock %}
-	{% block javascripts %}
-	{% block importmap %}
-	{{ importmap('app') }}
-	{% endblock %}
-	{% endblock %}
+  <meta charset="UTF-8">
+  <title>
+    {% block title %}Welcome!
+    {% endblock %}
+  </title>
+  <link rel="icon" href="/logo.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  {% block stylesheets %}
+  {% endblock %}
+  {% block javascripts %}
+  {% block importmap %}
+  {{ importmap('app') }}
+  {% endblock %}
+  {% endblock %}
 </head>
 
 <body>
-	<div class="container-fluid p-0">
-		<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
-			<div class="container-fluid">
-				<a class="navbar-brand text-info" href="{{ url('home') }}"><strong>HUGO</strong></a>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-					aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-						<li class="nav-item">
-							<a class="nav-link {{ app.current_route == 'home' ? 'active':''}}" aria-current="page"
-								href="{{ url('home') }}">Accueil</a>
-						</li>
-						<li class="nav-item">
-							<!-- utilise start with pour les routes commence par recipe -->
-							<a class="nav-link {{ app.current_route starts with 'recipe.' ? 'active':''}}"
-								href="{{ url('recipe.index') }}">Recettes</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link {{ app.current_route == 'contact.index' ? 'active':''}}"
-								href="{{ url('contact.index') }}">Contact</a>
-						</li>
-						{% if app.user %}
-						<li class="nav-item">
-							<a class="nav-link {{ app.current_route == 'admin_index' ? 'active':''}}"
-								href="{{ url('admin_index') }}">Votre espace</a>
-						</li>
-						{% endif %}
-						{% if app.user %}
-						<li class="nav-item">
-							<a class="nav-link {{ app.current_route == 'app_logout' ? 'active':''}}"
-								href="{{ url('app_logout') }}">Logout</a>
-						</li>
-						{% else %}
-						<li class="nav-item">
-							<a class="nav-link {{ app.current_route == 'app_login' ? 'active':''}}"
-								href="{{ url('app_login') }}">Login</a>
-						</li>
-						{% endif %}
-					</ul>
-					<form class="d-flex" role="search" id="searchForm">
-						<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput">
-						<button class="btn btn-outline-info" type="submit" id="submit">Search</button>
-					</form>
-				</div>
-			</div>
-		</nav>
-		<div class="container my-4" style="min-height: 562px;">
-			{% include 'partials/flash.html.twig' %}
-			{% block body %}
-			{% endblock %}
-		</div>
-		<footer class="bg-dark text-center">
-			<p class="text-white pt-2">Recettes de cuisine</p>
-			<h2 class="text-info mb-0 pb-2">HUGO</h2>
-		</footer>
-	</div>
-	<script>
-		/* const input = document.getElementById("searchInput");
-		input.addEventListener("focus", function () {
-			this.classList.add("expand-search");
-		});
-		input.addEventListener("blur", function () {
-			this.classList.remove("expand-search");
-		});
-		const buttonSubmit = document.getElementById("submit");
-		buttonSubmit.addEventListener("click", function (e) {
-			e.preventDefault();
-		}); */
-	</script>
+  <div class="container-fluid p-0">
+    <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+      <div class="container-fluid">
+        <a class="navbar-brand text-info" href="{{ url('home') }}"><strong>HUGO</strong></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link {{ app.current_route == 'home' ? 'active':''}}" aria-current="page"
+                href="{{ url('home') }}">Accueil</a>
+            </li>
+            <li class="nav-item">
+              <!-- utilise start with pour les routes commence par recipe -->
+              <a class="nav-link {{ app.current_route starts with 'recipe.' ? 'active':''}}"
+                href="{{ url('recipe.index') }}">Recettes</a>
+            </li>
+            <li class="nav-item">
+              <!-- utilise start with pour les routes commence par recipe -->
+              <a class="nav-link {{ app.current_route starts with 'category.' ? 'active':''}}"
+                href="{{ url('category.index') }}">Categories</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ app.current_route == 'contact.index' ? 'active':''}}"
+                href="{{ url('contact.index') }}">Contact</a>
+            </li>
+            {% if app.user %}
+            <li class="nav-item">
+              <a class="nav-link {{ app.current_route == 'admin_index' ? 'active':''}}"
+                href="{{ url('admin_index') }}">Votre espace</a>
+            </li>
+            {% endif %}
+            {% if app.user %}
+            <li class="nav-item">
+              <a class="nav-link {{ app.current_route == 'app_logout' ? 'active':''}}"
+                href="{{ url('app_logout') }}">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link {{ app.current_route == 'app_login' ? 'active':''}}"
+                href="{{ url('app_login') }}">Login</a>
+            </li>
+            {% endif %}
+          </ul>
+          <form class="d-flex" role="search" id="searchForm">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput">
+            <button class="btn btn-outline-info" type="submit" id="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <div class="container my-4" style="min-height: 562px;">
+      {% include 'partials/flash.html.twig' %}
+      {% block body %}
+      {% endblock %}
+    </div>
+    <footer class="bg-dark text-center">
+      <p class="text-white pt-2">Recettes de cuisine</p>
+      <h2 class="text-info mb-0 pb-2">HUGO</h2>
+    </footer>
+  </div>
+  <script>
+    /* const input = document.getElementById("searchInput");
+    input.addEventListener("focus", function () {
+      this.classList.add("expand-search");
+    });
+    input.addEventListener("blur", function () {
+      this.classList.remove("expand-search");
+    });
+    const buttonSubmit = document.getElementById("submit");
+    buttonSubmit.addEventListener("click", function (e) {
+      e.preventDefault();
+    }); */
+  </script>
 </body>
 
 </html>
