@@ -45,6 +45,12 @@
 						</li>
 						{% if app.user %}
 						<li class="nav-item">
+							<a class="nav-link {{ app.current_route == 'admin_index' ? 'active':''}}"
+								href="{{ url('admin_index') }}">Votre espace</a>
+						</li>
+						{% endif %}
+						{% if app.user %}
+						<li class="nav-item">
 							<a class="nav-link {{ app.current_route == 'app_logout' ? 'active':''}}"
 								href="{{ url('app_logout') }}">Logout</a>
 						</li>
@@ -52,12 +58,6 @@
 						<li class="nav-item">
 							<a class="nav-link {{ app.current_route == 'app_login' ? 'active':''}}"
 								href="{{ url('app_login') }}">Login</a>
-						</li>
-						{% endif %}
-						{% if app.user %}
-						<li class="nav-item">
-							<a class="nav-link {{ app.current_route == 'admin_index' ? 'active':''}}"
-								href="{{ url('admin_index') }}">Admin</a>
 						</li>
 						{% endif %}
 					</ul>

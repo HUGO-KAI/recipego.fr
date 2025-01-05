@@ -16,10 +16,12 @@ class RecipeController extends AbstractController
 {
     //show all recipes
     #[Route('/recettes', name: 'recipe.index')]
-    public function getAllRecettes(Request $request, RecipeRepository $repository, EntityManagerInterface $em): Response
+    public function getAllRecettes(Request $request, RecipeRepository $RecipeRepository, EntityManagerInterface $em): Response
     {
-        $recipes = $repository->findWithDurationLowerThan(30);
-        
+        //$recipes = $RecipeRepository->findWithDurationLowerThan(30);
+        $offset = max(0, $request->query->getInt('offset', 0));
+        dump($offset);
+        $paginator = $RecipeRepository->getRecipePaginator($offset);
         //create recipe
         /* $recipe = new Recipe();
         $recipe->setTitle('Barbe à papa')
@@ -38,7 +40,9 @@ class RecipeController extends AbstractController
         $em->persist($recipe);
         $em->flush(); */
         return $this->render('recipe/index.html.twig', [
-            'recipes' => $recipes
+            'recipes' => $paginator,
+            'previous' => $offset - RecipeRepository::RECIPES_PER_PAGE,
+            'next' => min(count($paginator), $offset + RecipeRepository::RECIPES_PER_PAGE),
         ]);
     }
     //show one recipe
