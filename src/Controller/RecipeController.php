@@ -20,7 +20,6 @@ class RecipeController extends AbstractController
     {
         //$recipes = $RecipeRepository->findWithDurationLowerThan(30);
         $offset = max(0, $request->query->getInt('offset', 0));
-        dump($offset);
         $paginator = $RecipeRepository->getRecipePaginator($offset);
         //create recipe
         /* $recipe = new Recipe();
