@@ -9,37 +9,37 @@
 
 {% if app.user %}
 <div class="mb-3">
-    You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+  You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
 </div>
 {% else %}
-<h1 class="h3 mb-3 font-weight-normal">Vous voulez gérer votre recettes ? Veuillez login votre compte</h1>
+<h1 class="h3 mb-3 font-weight-normal">Vous voulez créer ou gérer votre recettes ?</h1>
+<h6>Veuillez login votre compte avec votre adresse mail et votre mot de passe</h6>
 <div class="row">
-    <form method="post" class="col-6">
-        <label for="username">Email</label>
-        <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control"
-            autocomplete="email" required autofocus>
-        <label for="password">Password</label>
-        <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password"
-            required>
+  <form method="post" class="col-6">
+    <label for="username">Email</label>
+    <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control"
+      autocomplete="email" required autofocus>
+    <label for="password">Password</label>
+    <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
 
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-        {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
+    {#
+    Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+    See https://symfony.com/doc/current/security/remember_me.html
 
-        <div class="checkbox mb-3">
-            <input type="checkbox" name="_remember_me" id="_remember_me">
-            <label for="_remember_me">Remember me</label>
-        </div>
-        #}
+    <div class="checkbox mb-3">
+      <input type="checkbox" name="_remember_me" id="_remember_me">
+      <label for="_remember_me">Remember me</label>
+    </div>
+    #}
 
-        <button class="btn btn-lg btn-info text-white mt-2" type="submit">
-            Login
-        </button>
-        <p class="mt-2">Vous n'avez pas encore un compte ? Créer le votre <a href="{{ url('app_register')}}"> cliquer
-                ici</a></p>
-    </form>
+    <button class="btn btn-primary text-white mt-2" type="submit">
+      Login
+    </button>
+    <p class="mt-2">Vous n'avez pas encore un compte ? Créer le votre <a href="{{ url('app_register')}}"> cliquer
+        ici</a></p>
+  </form>
 </div>
 {% endif %}
 {% endblock %}

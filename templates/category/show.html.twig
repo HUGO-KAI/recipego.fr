@@ -7,12 +7,12 @@
 <h2>
   La catégtorie: {{ category.name }}
 </h2>
-<div class="row">
+<div class="container row">
   <div class="col-9 row gap-3">
     {% for recipe in recipes %}
-    <div class="card col-4 shadow px-0" style="width: 18rem;">
+    <div class="card col-4 shadow px-0" style="width: 15rem;">
       <img src="{{ recipe.thumbnail?vich_uploader_asset(recipe, 'thumbnailFile'):'/images/recipe_default.jpg' }}"
-        class="card-img-top img-fluid" alt="recettes de cuisine" style="height:250px">
+        class="card-img-top img-fluid" alt="recettes de cuisine" style="height:200px">
       <div class="card-body">
         <h5 class="card-title">{{recipe.title}}</h5>
         <p class="card-text">Duration : {{recipe.duration}} minutes</p>
