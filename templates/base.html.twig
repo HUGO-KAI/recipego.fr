@@ -17,7 +17,7 @@
   {% endblock %}
 </head>
 
-<body>
+<body data-controller="hello">
   <div class="container-fluid p-0">
     <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
       <div class="container-fluid">
@@ -82,6 +82,24 @@
     </footer>
   </div>
   <script>
+    try {
+      let input = document.getElementById("searchInput");
+      input.addEventListener("focus", function () {
+        this.classList.add("expand-search");
+      });
+      input.addEventListener("blur", function () {
+        this.classList.remove("expand-search");
+      });
+      const buttonSubmit = document.getElementById("submit");
+      buttonSubmit.addEventListener("click", function (e) {
+        e.preventDefault();
+      });
+    } catch (e) {
+      console.log(e);
+      console.log(input);
+    }
+
+
     /* const input = document.getElementById("searchInput");
     input.addEventListener("focus", function () {
       this.classList.add("expand-search");

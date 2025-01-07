@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
@@ -16,169 +17,175 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 #[Vich\Uploadable]
 class Recipe
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+  #[ORM\Id]
+  #[ORM\GeneratedValue]
+  #[ORM\Column]
+  #[Groups(['recipes.index'])]
+  private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    #[Assert\Length(min: 2)]
-    #[Assert\NotBlank]
-    private ?string $title = null;
+  #[ORM\Column(length: 255)]
+  #[Assert\Length(min: 2)]
+  #[Assert\NotBlank]
+  #[Groups(['recipes.index'])]
+  private ?string $title = null;
 
-    #[ORM\Column(length: 255)]
-    #[Assert\Length(min: 5)]
-    #[Assert\Regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', "Invalid slug: exemple-recettes-1")]
-    private ?string $slug = null;
+  #[ORM\Column(length: 255)]
+  #[Assert\Length(min: 5)]
+  #[Assert\Regex('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', "Invalid slug: exemple-recettes-1")]
+  #[Groups(['recipes.index'])]
+  private ?string $slug = null;
 
-    #[ORM\Column(type: Types::TEXT)]
-    private ?string $content = null;
+  #[ORM\Column(type: Types::TEXT)]
+  #[Groups(['recipes.show'])]
+  private ?string $content = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+  #[ORM\Column]
+  private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $updatedAt = null;
+  #[ORM\Column]
+  private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\Column(nullable: true)]
-    #[Assert\NotBlank]
-    #[Assert\Positive]
-    private ?int $duration = null;
+  #[ORM\Column(nullable: true)]
+  #[Assert\NotBlank]
+  #[Assert\Positive]
+  #[Groups(['recipes.show'])]
+  private ?int $duration = null;
 
-    #[ORM\ManyToOne(inversedBy: 'recipes')]
-    private ?Category $category = null;
+  #[ORM\ManyToOne(inversedBy: 'recipes')]
+  #[Groups(['recipes.index'])]
+  private ?Category $category = null;
 
-    // NOTE: This is not a mapped field of entity metadata, just a simple property.
-    #[Vich\UploadableField(mapping: 'recipes', fileNameProperty: 'thumbnail')]
-    #[Assert\Image()]
-    private ?File $thumbnailFile = null;
+  // NOTE: This is not a mapped field of entity metadata, just a simple property.
+  #[Vich\UploadableField(mapping: 'recipes', fileNameProperty: 'thumbnail')]
+  #[Assert\Image()]
+  private ?File $thumbnailFile = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $thumbnail = null;
+  #[ORM\Column(length: 255, nullable: true)]
+  private ?string $thumbnail = null;
 
-    #[ORM\ManyToOne(inversedBy: 'recipes')]
-    private ?User $user = null;
+  #[ORM\ManyToOne(inversedBy: 'recipes')]
+  private ?User $user = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+  public function getId(): ?int
+  {
+    return $this->id;
+  }
 
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
+  public function getTitle(): ?string
+  {
+    return $this->title;
+  }
 
-    public function setTitle(string $title): static
-    {
-        $this->title = $title;
+  public function setTitle(string $title): static
+  {
+    $this->title = $title;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
+  public function getSlug(): ?string
+  {
+    return $this->slug;
+  }
 
-    public function setSlug(string $slug): static
-    {
-        $this->slug = $slug;
+  public function setSlug(string $slug): static
+  {
+    $this->slug = $slug;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    public function getContent(): ?string
-    {
-        return $this->content;
-    }
+  public function getContent(): ?string
+  {
+    return $this->content;
+  }
 
-    public function setContent(string $content): static
-    {
-        $this->content = $content;
+  public function setContent(string $content): static
+  {
+    $this->content = $content;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
+  public function getCreatedAt(): ?\DateTimeImmutable
+  {
+    return $this->createdAt;
+  }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
-    {
-        $this->createdAt = $createdAt;
+  public function setCreatedAt(\DateTimeImmutable $createdAt): static
+  {
+    $this->createdAt = $createdAt;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
+  public function getUpdatedAt(): ?\DateTimeImmutable
+  {
+    return $this->updatedAt;
+  }
 
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
-    {
-        $this->updatedAt = $updatedAt;
+  public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
+  {
+    $this->updatedAt = $updatedAt;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    public function getDuration(): ?int
-    {
-        return $this->duration;
-    }
+  public function getDuration(): ?int
+  {
+    return $this->duration;
+  }
 
-    public function setDuration(?int $duration): static
-    {
-        $this->duration = $duration;
+  public function setDuration(?int $duration): static
+  {
+    $this->duration = $duration;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
+  public function getCategory(): ?Category
+  {
+    return $this->category;
+  }
 
-    public function setCategory(?Category $category): static
-    {
-        $this->category = $category;
+  public function setCategory(?Category $category): static
+  {
+    $this->category = $category;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    public function getThumbnail(): ?string
-    {
-        return $this->thumbnail;
-    }
+  public function getThumbnail(): ?string
+  {
+    return $this->thumbnail;
+  }
 
-    public function setThumbnail(?string $thumbnail): static
-    {
-        $this->thumbnail = $thumbnail;
+  public function setThumbnail(?string $thumbnail): static
+  {
+    $this->thumbnail = $thumbnail;
 
-        return $this;
-    }
-    public function getThumbnailFile(): ?File
-    {
-        return $this->thumbnailFile;
-    }
+    return $this;
+  }
+  public function getThumbnailFile(): ?File
+  {
+    return $this->thumbnailFile;
+  }
 
-    public function setThumbnailFile(?File $imageFile = null): static
-    {
-        $this->thumbnailFile = $imageFile;
-        return $this;
-    }
+  public function setThumbnailFile(?File $imageFile = null): static
+  {
+    $this->thumbnailFile = $imageFile;
+    return $this;
+  }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
+  public function getUser(): ?User
+  {
+    return $this->user;
+  }
 
-    public function setUser(?User $user): static
-    {
-        $this->user = $user;
+  public function setUser(?User $user): static
+  {
+    $this->user = $user;
 
-        return $this;
-    }
+    return $this;
+  }
 }

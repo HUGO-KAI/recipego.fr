@@ -7,10 +7,7 @@ import './bootstrap.js';
  */
 import './styles/app.css';
 import './styles/index.css';
-import canvasConfetti from 'canvas-confetti';
 
-document.body.addEventListener('click', () => {
-  canvasConfetti()
-})
+
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
