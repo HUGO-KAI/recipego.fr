@@ -12,7 +12,7 @@ import canvasConfetti from 'canvas-confetti';
  */
 export default class extends Controller {
     async connect() {
-      window.onload = setTimeout(()=>{
-        canvasConfetti()},200)      
+      window.onload = setTimeout(()=>{canvasConfetti()},200)
     }
+    
 }
