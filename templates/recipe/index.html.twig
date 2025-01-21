@@ -34,14 +34,20 @@
       </tbody>
     </table>
     {% if previous >= 0 %}
-    <a href="{{ path('recipe.index', { offset: previous }) }}">Previous</a>
+    <a href="{{ path('recipe.index', { offset: previous }) }}"
+      class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover">
+      << Previous</a>
+        {% endif %}
+        {% if next < recipes|length %} <a href="{{ path('recipe.index', { offset: next }) }}"
+          class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover">Next >>
+    </a>
     {% endif %}
-    {% if next < recipes|length %} <a href="{{ path('recipe.index', { offset: next }) }}">Next</a>
-      {% endif %}
   </div>
   <div class="col-4 text-center">
     <img src="/images/chef-cuisine.jpg" class="img-fluid rounded shadow" alt="hugo-recettes">
-    <h4><a href="{{ url('admin_index' )}}">Créer la votre !</a></h4>
+    <h4><a href="{{ url('admin_index' )}}"
+        class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover">Créer la
+        votre -></a></h4>
   </div>
 </div>
 

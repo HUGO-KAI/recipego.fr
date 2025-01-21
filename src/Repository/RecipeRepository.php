@@ -12,7 +12,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class RecipeRepository extends ServiceEntityRepository
 {
-  public const RECIPES_PER_PAGE = 2;
+  public const RECIPES_PER_PAGE = 5;
   public function __construct(ManagerRegistry $registry)
   {
     parent::__construct($registry, Recipe::class);

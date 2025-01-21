@@ -17,7 +17,7 @@
   {% endblock %}
 </head>
 
-<body data-controller="hello">
+<body>
   <div class="container-fluid p-0">
     <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
       <div class="container-fluid">
@@ -34,13 +34,13 @@
             </li>
             <li class="nav-item">
               <!-- utilise start with pour les routes commence par recipe -->
-              <a class="nav-link {{ app.current_route starts with 'recipe.' ? 'active':''}}"
-                href="{{ url('recipe.index') }}">Recettes</a>
+              <a class="nav-link {{ app.current_route starts with 'category.' ? 'active':''}}"
+                href="{{ url('category.index') }}">Categories</a>
             </li>
             <li class="nav-item">
               <!-- utilise start with pour les routes commence par recipe -->
-              <a class="nav-link {{ app.current_route starts with 'category.' ? 'active':''}}"
-                href="{{ url('category.index') }}">Categories</a>
+              <a class="nav-link {{ app.current_route starts with 'recipe.' ? 'active':''}}"
+                href="{{ url('recipe.index') }}">Recettes</a>
             </li>
             <li class="nav-item">
               <a class="nav-link {{ app.current_route == 'contact.index' ? 'active':''}}"

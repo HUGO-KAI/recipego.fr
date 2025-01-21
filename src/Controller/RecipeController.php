@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 use App\Repository\RecipeRepository;
+use App\Repository\QuantityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 class RecipeController extends AbstractController
@@ -45,18 +46,26 @@ class RecipeController extends AbstractController
       'next' => min(count($paginator), $offset + RecipeRepository::RECIPES_PER_PAGE),
     ]);
   }
-  //show one recipe
+  //show one recipe for all users
   #[Route('/recettes/{slug}-{id}', name: 'recipe.show', requirements: ['id' => '\d+', 'slug' => '[a-z0-9-]+'])]
-  public function show(string $slug, int $id, RecipeRepository $repository): Response
+  public function show(string $slug, int $id, RecipeRepository $repository, QuantityRepository $quantityRepository): Response
   {
     $recipe = $repository->find($id);
+    $result = $quantityRepository->findAll();
+    $ingredients = [];
+    foreach ($result as $quantity) {
+      if ($quantity->getRecipe()->getId() == $recipe->getId()) {
+        array_push($ingredients, $quantity);
+      }
+    }
     if (
       empty($recipe) || $slug !== $recipe->getSlug()
     ) {
       return $this->redirectToRoute('recipe.show', ['slug' => $recipe->getSlug(), 'id' => $recipe->getId()]);
     }
     return $this->render('recipe/show.html.twig', [
-      'recipe' => $recipe
+      'recipe' => $recipe,
+      'ingredients' => $ingredients
     ]);
   }
 }
