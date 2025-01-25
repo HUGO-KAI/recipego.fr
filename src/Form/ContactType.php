@@ -12,30 +12,30 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class ContactType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
-        $builder
-            ->add('name', TextType::class, [
-                'label' => 'Nom',
-                'required' => true
-            ])
-            ->add('email', EmailType::class, [
-                'label' => 'Adresse mail',
-                'required' => true
-            ])
-            ->add('service', ChoiceType::class, [
-                'label' => 'Au service',
-                'required' => true,
-                'choices'  => [
-                    'Commercial' => 'commercial@exemple.com',
-                    'Support technique' => 'Support@exemple.com',
-                    'Recrutement' => 'recrutement@exemple.com',
-                ]
-            ])
-            ->add('message', TextareaType::class, [
-                'required' => true
-            ])
-            ->add('envoyer', SubmitType::class)
-        ;
-    }
+  public function buildForm(FormBuilderInterface $builder, array $options): void
+  {
+    $builder
+      ->add('name', TextType::class, [
+        'label' => 'Name',
+        'required' => true
+      ])
+      ->add('email', EmailType::class, [
+        'label' => 'Email Adresse',
+        'required' => true
+      ])
+      ->add('service', ChoiceType::class, [
+        'label' => 'To service',
+        'required' => true,
+        'choices'  => [
+          'Commercial' => 'commercial@exemple.com',
+          'Technical support' => 'Support@exemple.com',
+          'Recruitment' => 'recrutement@exemple.com',
+        ]
+      ])
+      ->add('message', TextareaType::class, [
+        'required' => true
+      ])
+      ->add('Send', SubmitType::class)
+    ;
+  }
 }

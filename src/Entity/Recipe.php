@@ -28,7 +28,7 @@ class Recipe
   #[ORM\Column(length: 255)]
   #[Assert\Length(min: 2)]
   #[Assert\NotBlank]
-  #[Groups(['recipes.index'])]
+  #[Groups(['recipes.index', 'write'])]
   private ?string $title = null;
 
   #[ORM\Column(length: 255)]
@@ -38,7 +38,7 @@ class Recipe
   private ?string $slug = null;
 
   #[ORM\Column(type: Types::TEXT)]
-  #[Groups(['recipes.show'])]
+  #[Groups(['recipes.show', 'write'])]
   private ?string $content = null;
 
   #[ORM\Column]
