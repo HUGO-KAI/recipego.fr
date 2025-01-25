@@ -5,14 +5,17 @@ namespace App\Controller\API;
 use App\Entity\Recipe;
 use App\Repository\CategoryRepository;
 use App\Repository\RecipeRepository;
+use App\ValueResolver\Attribute\MapHydratedEntity;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
+use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Component\String\Slugger\AsciiSlugger;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route("/api", name: 'api_', methods: ['GET'])]
 class RecipesController extends AbstractController
@@ -66,18 +69,29 @@ class RecipesController extends AbstractController
     $em->persist($recipe);
     $em->flush();
     return $this->json(
-      ["message" => "Success"],
+      ["message" => "Create success"],
       200,
       ['content-type' => 'text/html']
     );
   }
-  //update a recipe with ValueResolver
-  #[Route("/recipes/update/{post}", name: 'recipes_update', methods: ['PUT'])]
-  public function update(RecipeRepository $recipeRepository, Request $request): Response
-  {
-    //todo: update a recipe
+  //update a recipe
+  #[Route("/recipes/update/{recipe}", name: 'recipes_update', methods: ['PUT'])]
+  public function update(
+    Recipe $recipe,
+    EntityManagerInterface $em,
+    CategoryRepository $categoryRepository,
+    Request $request
+  ): Response {
+    $content = json_decode($request->getContent(), true);
+    $slugger = new AsciiSlugger();
+    $recipe->setTitle($content['title'])
+      ->setSlug(strtolower($slugger->slug($content['title'])))
+      ->setContent($content['content'])
+      ->setCategory($categoryRepository->findOneBy(['id' => $content['category']]));
+    $em->persist($recipe);
+    $em->flush();
     return $this->json(
-      ["message" => "Success"],
+      ["message" => "Update success"],
       200,
       ['content-type' => 'text/html']
     );
