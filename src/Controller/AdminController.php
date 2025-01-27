@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 use App\Repository\RecipeRepository;
+use App\Repository\QuantityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 #[Route('/admin', name: 'admin_')]
@@ -66,14 +67,22 @@ class AdminController extends AbstractController
   }
   //show one recipe in admin
   #[Route('/recettes/{slug}-{id}', name: 'recipe.show', requirements: ['id' => '\d+', 'slug' => '[a-z0-9-]+'])]
-  public function show(string $slug, int $id, RecipeRepository $repository): Response
+  public function show(string $slug, int $id, RecipeRepository $repository, QuantityRepository $quantityRepository): Response
   {
     $recipe = $repository->find($id);
     if (empty($recipe) || $slug !== $recipe->getSlug()) {
       return $this->redirectToRoute('admin_recipe.show', ['slug' => $recipe->getSlug(), 'id' => $recipe->getId()]);
     }
+    $result = $quantityRepository->findAll();
+    $ingredients = [];
+    foreach ($result as $quantity) {
+      if ($quantity->getRecipe()->getId() == $recipe->getId()) {
+        array_push($ingredients, $quantity);
+      }
+    }
     return $this->render('admin/recipe/show.html.twig', [
-      'recipe' => $recipe
+      'recipe' => $recipe,
+      'ingredients' => $ingredients
     ]);
   }
   //add one recipe
@@ -105,7 +114,6 @@ class AdminController extends AbstractController
   {
     $form = $this->createForm(RecipeType::class, $recipe);
     $form->handleRequest($request);
-
     if ($form->isSubmitted() && $form->isValid()) {
       $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
       $user = $this->getUser();

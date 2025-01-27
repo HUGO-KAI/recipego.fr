@@ -11,6 +11,16 @@
     <img src="{{ recipe.thumbnail?vich_uploader_asset(recipe, 'thumbnailFile'):'' }}" alt="{{ recipe.title }}"
       class="img-fluid {{ recipe.thumbnail?'':'d-none'}}">
   </div>
+  {% if ingredients %}
+  <h6>Ingredients:</h6>
+  <hr>
+  {% for i,ingredient in ingredients %}
+  <p>
+    {{ (i+1) }}) {{ ingredient.quantity}} {{ ingredient.unit}} de {{ ingredient.ingredient.name}}
+  </p>
+  {% endfor %}
+  <hr>
+  {% endif %}
   <p>
     {{ recipe.getContent | nl2br }}
   </p>
