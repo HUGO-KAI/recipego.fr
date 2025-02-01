@@ -22,7 +22,7 @@ class CategoryRepository extends ServiceEntityRepository
   public function getRecipesCountByCategory(): array
   {
     $qb = $this->createQueryBuilder('c')
-      ->select('NEW App\\DTO\\CategoryWithCountDTO(c.id, c.name, c.slug, COUNT(c.id))')
+      ->select('NEW App\\DTO\\CategoryWithCountDTO(c.id, c.name, c.slug, COUNT(r.id))')
       ->leftJoin('c.recipes', 'r')
       ->groupBy('c.id');
     $result = $qb->getQuery()->getResult();
