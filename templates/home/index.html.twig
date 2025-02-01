@@ -20,4 +20,20 @@
     </div>
   </div>
 </div>
+<div class="container-fluid mt-3">
+  <div class="row gap-3">
+    {% for recipe in recipes %}
+    <div class="card col-4 shadow px-0 mx-auto" style="width: 15rem;">
+      <img src="{{ recipe.thumbnail?vich_uploader_asset(recipe, 'thumbnailFile'):'/images/recipe_default.jpg' }}"
+        class="card-img-top img-fluid" alt="recettes de cuisine" style="height:200px">
+      <div class="card-body">
+        <h5 class="card-title text-truncate">{{recipe.title}}</h5>
+        <p class="card-text">Duration : {{recipe.duration}} minutes</p>
+        <a href="{{ url('recipe.show', {'id':recipe.id, 'slug': recipe.slug, 'recipe': recipe}) }}"
+          class="btn btn-primary">Détail</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}
